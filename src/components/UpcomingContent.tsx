@@ -1,24 +1,42 @@
-import { Clock, Calendar } from "lucide-react";
-import { Badge } from "@radix-ui/themes";
+import { Badge, Card, Flex, Grid, Inset } from "@radix-ui/themes";
 
 const upcomingItems = [
   {
-    title: "프롬프트 엔지니어링 기초",
+    title: "AI와 함께하는 CS학습 1",
+    thumbnail:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
     topic: "AI & 머신러닝",
+    description: "AI와 함께하는 CS학습 1",
     unlockDate: "2026-02-09",
     unlockTime: "09:00",
     color: "bg-purple-100 text-purple-700",
   },
   {
-    title: "사용자 리서치 실전 가이드",
-    topic: "UI/UX 디자인",
+    title: "AI와 함께하는 CS학습: 프롬프트 학습",
+    thumbnail:
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
+    topic: "기획",
+    description: "AI와 함께하는 CS학습 1",
     unlockDate: "2026-02-10",
     unlockTime: "09:00",
     color: "bg-pink-100 text-pink-700",
   },
   {
-    title: "Next.js 14 새로운 기능",
+    title: "AI와 함께하는 CS학습 3",
+    thumbnail:
+      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
     topic: "프론트엔드 개발",
+    description: "AI와 함께하는 CS학습 1",
+    unlockDate: "2026-02-11",
+    unlockTime: "09:00",
+    color: "bg-blue-100 text-blue-700",
+  },
+  {
+    title: "AI와 함께하는 CS학습 4",
+    thumbnail:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+    topic: "프론트엔드 개발",
+    description: "AI와 함께하는 CS학습 1",
     unlockDate: "2026-02-11",
     unlockTime: "09:00",
     color: "bg-blue-100 text-blue-700",
@@ -29,33 +47,34 @@ export function UpcomingContent() {
   return (
     <div className="bg-neutral-50 rounded-3xl p-6 mb-8">
       <div className="flex items-center gap-2 mb-4">
-        <Calendar className="w-5 h-5 text-neutral-600" />
-        <h3 className="text-lg font-bold">다음에 열릴 콘텐츠</h3>
+        <h3 className="text-lg font-bold">AI와 함께하는 CS학습</h3>
       </div>
-      <div className="space-y-3">
+      <Grid columns="2" gap="4">
         {upcomingItems.map((item, index) => (
-          <div
-            key={index}
-            className="flex items-center justify-between p-4 bg-white rounded-xl border border-neutral-200"
-          >
-            <div className="flex-1">
-              <h4 className="font-semibold text-sm mb-1">{item.title}</h4>
-              <Badge
-                variant="soft"
-                className={`text-xs ${item.color} border-0`}
-              >
-                {item.topic}
-              </Badge>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-neutral-600">
-              <Clock className="w-4 h-4" />
-              <span>
-                {item.unlockDate} {item.unlockTime}
-              </span>
-            </div>
-          </div>
+          <Card>
+            <Flex>
+              <Inset clip="padding-box" side="left" pr="current">
+                <img
+                  src={item.thumbnail}
+                  alt={item.title}
+                  className="w-50 h-50 object-cover"
+                />
+              </Inset>
+
+              <Flex direction="column" gap="2">
+                <Flex align="center" gap="2" mb="2">
+                  <h2 className="font-semibold text-lg">{item.title}</h2>
+                  {index === 1 && <Badge color="pink">Now</Badge>}
+                </Flex>
+                <Badge variant="soft" className="w-fit">
+                  {item.topic}
+                </Badge>
+                <p className="text-sm text-neutral-600">{item.description}</p>
+              </Flex>
+            </Flex>
+          </Card>
         ))}
-      </div>
+      </Grid>
     </div>
   );
 }
