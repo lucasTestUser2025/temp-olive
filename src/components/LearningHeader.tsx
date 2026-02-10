@@ -1,5 +1,6 @@
 import { Bell } from "lucide-react";
 import { Avatar, IconButton } from "@radix-ui/themes";
+import { Link } from "react-router-dom";
 
 export function LearningHeader() {
   return (
@@ -7,26 +8,26 @@ export function LearningHeader() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center gap-8">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="text-2xl font-bold tracking-tight flex items-center gap-2"
             >
-              <div className="w-8 h-8 bg-gradient-to-br from-violet-600 to-indigo-600 rounded-lg" />
+              <div className="w-8 h-8 bg-linear-to-br from-violet-600 to-indigo-600 rounded-lg" />
               <span>LearnHub</span>
-            </a>
+            </Link>
             <nav className="hidden md:flex items-center gap-6">
-              <a
-                href="#learn"
+              <Link
+                to="/"
                 className="text-sm font-medium hover:text-violet-600 transition-colors"
               >
                 학습하기
-              </a>
-              <a
-                href="#community"
+              </Link>
+              <Link
+                to="/#about"
                 className="text-sm hover:text-violet-600 transition-colors"
               >
-                커뮤니티
-              </a>
+                소개
+              </Link>
               <a
                 href="#progress"
                 className="text-sm hover:text-violet-600 transition-colors"
