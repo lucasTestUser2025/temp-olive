@@ -13,6 +13,7 @@ import {
   CheckCircle2,
   AlertCircle,
   type LucideIcon,
+  Trophy,
 } from "lucide-react";
 import { Badge, Button, type BadgeProps } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
@@ -70,7 +71,7 @@ const topics: Topic[] = [
   },
   {
     id: "ai",
-    name: "AI & 머신러닝",
+    name: "AI & 프롬프트",
     description: "인공지능의 세계",
     icon: Brain,
     linearColor: "from-purple-500 to-pink-500",
@@ -132,15 +133,16 @@ const nextWeek = getNextWeekDates();
 const timedContents: TimedContent[] = [
   // 프론트엔드 - 이번 주
   {
-    id: "fe-week-1",
-    topicId: "frontend",
-    title: "React Hooks 완전 정복",
-    subtitle: "useState부터 Custom Hooks까지",
-    description: "7일간의 집중 학습으로 React Hooks 마스터하기",
+    id: "ai-week-1",
+    topicId: "ai",
+    title: "AI로 나만의 이메일 요약 도구 만들기",
+    subtitle: "긴 이메일을 3줄정도로 요약해봅시다",
+    description:
+      "매일 쏟아지는 이메일, 다 읽기엔 시간이 부족하죠. AI를 활용해서 긴 이메일을 3줄로 요약해주는 나만의 도구를 만들어봅니다. 코드를 쓸 수도 있고, 노코드 도구를 활용할 수도 있어요",
     startDate: thisWeek.start,
     endDate: thisWeek.end,
     weekNumber: 1,
-    difficulty: "중급",
+    difficulty: "초급",
     dailyTime: "하루 20분",
     stats: {
       enrolled: 234,
@@ -151,32 +153,14 @@ const timedContents: TimedContent[] = [
   },
   // 프론트엔드 - 다음 주 (곧 공개)
   {
-    id: "fe-week-2",
-    topicId: "frontend",
-    title: "Next.js 14 신기능",
-    subtitle: "App Router와 Server Components",
-    description: "최신 Next.js로 풀스택 앱 만들기",
+    id: "ai-week-2",
+    topicId: "ai",
+    title: "AI로 회의록 자동 정리 시스템 만들기",
+    subtitle: "흐지부지 끝나는 회의, AI가 액션 아이템까지 뽑아줍니다",
+    description:
+      "회의록을 자동으로 정리해주는 나만의 도구를 만들어봅니다. 코드를 쓸 수도 있고, 노코드 도구를 활용할 수도 있어요",
     startDate: nextWeek.start,
     endDate: nextWeek.end,
-    weekNumber: 2,
-    difficulty: "고급",
-    dailyTime: "하루 25분",
-    stats: {
-      enrolled: 0,
-      completed: 0,
-      activeNow: 0,
-    },
-    status: "upcoming",
-  },
-  // AI - 이번 주
-  {
-    id: "ai-week-1",
-    topicId: "ai",
-    title: "프롬프트 엔지니어링 입문",
-    subtitle: "ChatGPT를 200% 활용하기",
-    description: "효과적인 프롬프트 작성법과 실전 예제",
-    startDate: thisWeek.start,
-    endDate: thisWeek.end,
     weekNumber: 1,
     difficulty: "초급",
     dailyTime: "하루 15분",
@@ -185,7 +169,7 @@ const timedContents: TimedContent[] = [
       completed: 234,
       activeNow: 222,
     },
-    status: "ending-soon",
+    status: "upcoming",
   },
   // 디자인 - 이번 주
   {
@@ -317,7 +301,7 @@ export function TimedCourseHub() {
                     </div>
                     <div>
                       <Badge
-                        className={`mb-2`}
+                        className="mb-2"
                         color={topic.color}
                         variant="solid"
                       >
@@ -435,6 +419,12 @@ export function TimedCourseHub() {
                     <span className="text-neutral-500">완료</span>
                   </div>
 
+                  <div className="flex items-center gap-2 text-sm">
+                    <Trophy className="w-4 h-4 text-amber-500" />
+                    <span className="font-semibold">+ 250 XP</span>
+                    <span className="text-neutral-500">획득 가능</span>
+                  </div>
+
                   <div className="ml-auto">
                     <Badge>{activeContent.difficulty}</Badge>
                   </div>
@@ -447,7 +437,7 @@ export function TimedCourseHub() {
                       <Button
                         size="3"
                         className="flex-1"
-                        onClick={() => navigate(`/course`)}
+                        onClick={() => navigate(`/course/ai-email-summary/1`)}
                       >
                         <Unlock className="w-4 h-4 mr-2" />
                         지금 시작하기
