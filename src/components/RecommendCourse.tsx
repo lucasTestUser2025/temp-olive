@@ -7,9 +7,8 @@ import {
   Clock,
   Users,
   CheckCircle2,
-  TrendingUp,
 } from "lucide-react";
-import { Badge, Button } from "@radix-ui/themes";
+import { Badge, Flex } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 
 // 일일 챌린지 - 매일 15분으로 해결 가능한 작은 주제들
@@ -66,7 +65,7 @@ const dailyChallenges = [
 
 export function RecommendCourse() {
   const navigate = useNavigate();
-  
+
   return (
     <div className="mb-8">
       <div className="mb-6">
@@ -79,28 +78,33 @@ export function RecommendCourse() {
       <div className="grid md:grid-cols-2 gap-4">
         {dailyChallenges.map((challenge, index) => {
           const Icon = challenge.icon;
-          const completionRate = Math.round((challenge.completed / challenge.participants) * 100);
-          
+
           return (
             <div
               key={index}
               className="group relative overflow-hidden bg-white border-2 border-neutral-200 hover:border-violet-300 rounded-xl p-5 transition-all hover:shadow-lg cursor-pointer"
-              onClick={() => navigate(`/challenge/${index}`)}
+              onClick={() => navigate(`/course`)}
             >
               {/* 배경 데코 */}
-              <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${challenge.color} opacity-10 rounded-full -mr-12 -mt-12`} />
+              <div
+                className={`absolute top-0 right-0 w-24 h-24 bg-linear-to-br ${challenge.color} opacity-10 rounded-full -mr-12 -mt-12`}
+              />
 
               {/* 헤더 */}
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-start gap-3 flex-1">
-                  <div className={`w-10 h-10 bg-gradient-to-br ${challenge.color} rounded-lg flex items-center justify-center shrink-0`}>
+                  <div
+                    className={`w-10 h-10 bg-linear-to-br ${challenge.color} rounded-lg flex items-center justify-center shrink-0`}
+                  >
                     <Icon className="w-5 h-5 text-white" />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-bold mb-0.5 group-hover:text-violet-600 transition-colors">
+                    <h3 className={`text-sm font-bold mb-0.5`}>
                       {challenge.title}
                     </h3>
-                    <p className="text-xs text-neutral-600">{challenge.description}</p>
+                    <p className="text-xs text-neutral-600">
+                      {challenge.description}
+                    </p>
                   </div>
                 </div>
                 <Badge size="1">{challenge.difficulty}</Badge>
@@ -129,25 +133,13 @@ export function RecommendCourse() {
                 </div>
               </div>
 
-              {/* 완료율 */}
-              <div className="mb-3">
-                <div className="flex justify-between text-xs mb-1">
-                  <span className="text-neutral-500">오늘 완료율</span>
-                  <span className="font-semibold text-neutral-700">{completionRate}%</span>
-                </div>
-                <div className="h-1.5 bg-neutral-200 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full bg-gradient-to-r ${challenge.color} rounded-full transition-all`}
-                    style={{ width: `${completionRate}%` }}
-                  />
-                </div>
-              </div>
-
               {/* 버튼 */}
-              <Button size="2" variant="soft" className="w-full">
-                도전하기
-                <ArrowRight className="w-3.5 h-3.5 ml-2" />
-              </Button>
+              <Flex justify="end" className="w-full">
+                <Badge size="3">
+                  도전하기
+                  <ArrowRight className="w-3.5 h-3.5 ml-2" />
+                </Badge>
+              </Flex>
             </div>
           );
         })}

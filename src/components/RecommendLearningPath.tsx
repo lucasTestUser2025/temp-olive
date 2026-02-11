@@ -5,19 +5,17 @@ import {
   Target,
   Trophy,
   Clock,
-  Users,
-  CheckCircle2,
-  Sparkles,
   Code,
   Palette,
   Brain,
+  UserCheck2,
+  type LucideIcon,
 } from "lucide-react";
-import { Badge, Button } from "@radix-ui/themes";
-import { useNavigate } from "react-router-dom";
+import { Badge } from "@radix-ui/themes";
 
 // 스킬 카드 - 작고 구체적인 스킬 하나씩
 interface Skill {
-  icon: any;
+  icon: LucideIcon;
   title: string;
   description: string;
   category: string;
@@ -112,8 +110,6 @@ const skills: Skill[] = [
 ];
 
 export function RecommendLearningPath() {
-  const navigate = useNavigate();
-
   return (
     <div className="mb-8">
       <div className="mb-6">
@@ -131,11 +127,12 @@ export function RecommendLearningPath() {
             <div
               key={index}
               className="group relative bg-white border-2 border-neutral-200 hover:border-violet-300 rounded-xl p-4 transition-all hover:shadow-lg cursor-pointer"
-              onClick={() => navigate(`/skill/${index}`)}
             >
               {/* 아이콘 & 카테고리 */}
               <div className="flex items-start justify-between mb-3">
-                <div className={`w-10 h-10 ${skill.bgColor} rounded-lg flex items-center justify-center`}>
+                <div
+                  className={`w-10 h-10 ${skill.bgColor} rounded-lg flex items-center justify-center`}
+                >
                   <Icon className={`w-5 h-5 ${skill.color}`} />
                 </div>
                 <Badge size="1">{skill.category}</Badge>
@@ -155,17 +152,15 @@ export function RecommendLearningPath() {
                   <Clock className="w-3.5 h-3.5 text-blue-500" />
                   <span className="font-semibold">{skill.duration}</span>
                 </div>
-                <Badge size="1" color="gray">{skill.difficulty}</Badge>
+                <Badge size="1" color="gray">
+                  {skill.difficulty}
+                </Badge>
               </div>
 
               {/* 통계 */}
-              <div className="flex items-center justify-between mb-3 pb-3 border-b text-xs">
-                <div className="flex items-center gap-1 text-green-600">
-                  <CheckCircle2 className="w-3.5 h-3.5" />
-                  <span className="font-semibold">{skill.learned}</span>
-                </div>
+              <div className="flex items-center justify-between mb-3 pb-3 border-b text-xs border-neutral-200">
                 <div className="flex items-center gap-1 text-violet-600">
-                  <Users className="w-3.5 h-3.5" />
+                  <UserCheck2 className="w-3.5 h-3.5" />
                   <span className="font-semibold">{skill.practicing}</span>
                 </div>
                 <div className="flex items-center gap-1 text-amber-600">
@@ -175,10 +170,10 @@ export function RecommendLearningPath() {
               </div>
 
               {/* 버튼 */}
-              <Button size="1" variant="soft" className="w-full">
+              <Badge size="2">
                 배우기
-                <ArrowRight className="w-3 h-3 ml-1" />
-              </Button>
+                <ArrowRight className="w-3.5 h-3.5 ml-2" />
+              </Badge>
             </div>
           );
         })}

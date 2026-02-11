@@ -8,10 +8,9 @@ import {
   Users,
   CheckCircle2,
   Play,
-  FileText,
   MessageSquare,
 } from "lucide-react";
-import { Badge, Button } from "@radix-ui/themes";
+import { Badge } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 
 // 주제별 빠른 학습 - 30분 이내로 완료 가능한 독립 주제
@@ -85,21 +84,24 @@ export function RecommendCourseEnhanced() {
       <div className="grid md:grid-cols-2 gap-4">
         {quickTopics.map((topic, index) => {
           const Icon = topic.icon;
-          const completionRate = Math.round((topic.completed / topic.participants) * 100);
 
           return (
             <div
               key={index}
               className="group relative bg-white border-2 border-neutral-200 hover:border-violet-300 rounded-xl p-4 transition-all hover:shadow-lg cursor-pointer"
-              onClick={() => navigate(`/quick/${index}`)}
+              onClick={() => navigate(`/course`)}
             >
               {/* 헤더 */}
               <div className="flex items-start gap-3 mb-3">
-                <div className={`w-12 h-12 bg-gradient-to-br ${topic.color} rounded-xl flex items-center justify-center shrink-0`}>
+                <div
+                  className={`w-12 h-12 bg-gradient-to-br ${topic.color} rounded-xl flex items-center justify-center shrink-0`}
+                >
                   <Icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="flex-1">
-                  <Badge size="1" className="mb-1">{topic.topic}</Badge>
+                  <Badge size="1" className="mb-1">
+                    {topic.topic}
+                  </Badge>
                   <h3 className="text-base font-bold mb-0.5 group-hover:text-violet-600 transition-colors">
                     {topic.title}
                   </h3>
@@ -121,7 +123,7 @@ export function RecommendCourseEnhanced() {
               </div>
 
               {/* 통계 */}
-              <div className="flex items-center gap-4 mb-3 text-xs">
+              <div className="flex items-center gap-4 mb-4 text-xs">
                 <div className="flex items-center gap-1 text-neutral-600">
                   <Users className="w-3.5 h-3.5" />
                   <span>{topic.participants}명</span>
@@ -136,21 +138,10 @@ export function RecommendCourseEnhanced() {
                 </div>
               </div>
 
-              {/* 완료율 바 */}
-              <div className="mb-3">
-                <div className="h-1.5 bg-neutral-200 rounded-full overflow-hidden">
-                  <div
-                    className={`h-full bg-gradient-to-r ${topic.color} rounded-full`}
-                    style={{ width: `${completionRate}%` }}
-                  />
-                </div>
-              </div>
-
-              {/* 버튼 */}
-              <Button size="2" variant="soft" className="w-full">
+              <Badge size="3">
                 바로 시작
                 <ArrowRight className="w-3.5 h-3.5 ml-2" />
-              </Button>
+              </Badge>
             </div>
           );
         })}

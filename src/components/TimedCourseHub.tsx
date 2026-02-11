@@ -10,12 +10,11 @@ import {
   Palette,
   Brain,
   Database,
-  Zap,
   CheckCircle2,
   AlertCircle,
-  TrendingUp,
+  type LucideIcon,
 } from "lucide-react";
-import { Badge, Button } from "@radix-ui/themes";
+import { Badge, Button, type BadgeProps } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 
@@ -24,8 +23,9 @@ interface Topic {
   id: string;
   name: string;
   description: string;
-  icon: any;
-  color: string;
+  icon: LucideIcon;
+  linearColor: string;
+  color: BadgeProps["color"];
   category: string;
 }
 
@@ -64,7 +64,8 @@ const topics: Topic[] = [
     name: "프론트엔드",
     description: "웹 개발의 최전선",
     icon: Code,
-    color: "from-blue-500 to-cyan-500",
+    linearColor: "from-blue-500 to-cyan-500",
+    color: "blue",
     category: "개발",
   },
   {
@@ -72,7 +73,8 @@ const topics: Topic[] = [
     name: "AI & 머신러닝",
     description: "인공지능의 세계",
     icon: Brain,
-    color: "from-purple-500 to-pink-500",
+    linearColor: "from-purple-500 to-pink-500",
+    color: "purple",
     category: "AI",
   },
   {
@@ -80,7 +82,8 @@ const topics: Topic[] = [
     name: "디자인",
     description: "아름다운 경험 만들기",
     icon: Palette,
-    color: "from-pink-500 to-rose-500",
+    linearColor: "from-pink-500 to-rose-500",
+    color: "pink",
     category: "디자인",
   },
   {
@@ -88,7 +91,8 @@ const topics: Topic[] = [
     name: "데이터 분석",
     description: "데이터로 말하기",
     icon: Database,
-    color: "from-amber-500 to-orange-500",
+    linearColor: "from-amber-500 to-orange-500",
+    color: "amber",
     category: "데이터",
   },
 ];
@@ -264,13 +268,9 @@ export function TimedCourseHub() {
       <div className="mb-6">
         <div className="flex items-center justify-between mb-2">
           <h2 className="text-2xl font-bold">이번 주 학습 트랙</h2>
-          <Badge color="orange" size="3">
-            <Zap className="w-3.5 h-3.5 mr-1" />
-            매주 업데이트
-          </Badge>
         </div>
         <p className="text-sm text-neutral-600 mb-3">
-          매주 새로운 주제가 공개됩니다. 기간 내에 완료하세요!
+          매주 새로운 주제가 공개됩니다!
         </p>
         <div className="flex items-center gap-2 text-sm text-neutral-500">
           <Clock className="w-4 h-4" />
@@ -307,14 +307,20 @@ export function TimedCourseHub() {
               className="relative bg-white border-2 border-neutral-200 rounded-2xl overflow-hidden"
             >
               {/* 주제 헤더 (고정) */}
-              <div className={`relative bg-gradient-to-br ${topic.color} p-6`}>
+              <div
+                className={`relative bg-linear-to-br ${topic.linearColor} p-6`}
+              >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
                     <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
                       <Icon className="w-7 h-7 text-white" />
                     </div>
                     <div>
-                      <Badge className="backdrop-blur-sm bg-white/20 text-white border-0 mb-2">
+                      <Badge
+                        className={`mb-2`}
+                        color={topic.color}
+                        variant="solid"
+                      >
                         {topic.category}
                       </Badge>
                       <h3 className="text-2xl font-bold text-white mb-1">
@@ -325,14 +331,6 @@ export function TimedCourseHub() {
                       </p>
                     </div>
                   </div>
-
-                  {/* 주차 표시 */}
-                  <Badge
-                    size="3"
-                    className="backdrop-blur-sm bg-white/20 text-white border-0"
-                  >
-                    Week {activeContent.weekNumber}
-                  </Badge>
                 </div>
               </div>
 
@@ -351,7 +349,9 @@ export function TimedCourseHub() {
                         </Badge>
                       )}
                     </div>
-                    <p className="text-sm text-violet-600 font-medium mb-2">
+                    <p
+                      className={`text-sm text-${topic.color}-600 font-medium mb-2`}
+                    >
                       {activeContent.subtitle}
                     </p>
                     <p className="text-sm text-neutral-600 mb-4">
@@ -419,13 +419,13 @@ export function TimedCourseHub() {
                 </div>
 
                 {/* 통계 */}
-                <div className="flex items-center gap-6 mb-4 pb-4 border-b">
+                <div className="flex items-center gap-6 mb-4 pb-4 border-b border-neutral-200">
                   <div className="flex items-center gap-2 text-sm">
                     <Users className="w-4 h-4 text-blue-500" />
                     <span className="font-semibold">
                       {activeContent.stats.enrolled}명
                     </span>
-                    <span className="text-neutral-500">등록</span>
+                    <span className="text-neutral-500">참여</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
                     <CheckCircle2 className="w-4 h-4 text-green-500" />
@@ -434,13 +434,7 @@ export function TimedCourseHub() {
                     </span>
                     <span className="text-neutral-500">완료</span>
                   </div>
-                  <div className="flex items-center gap-2 text-sm">
-                    <TrendingUp className="w-4 h-4 text-violet-500" />
-                    <span className="font-semibold">
-                      {activeContent.stats.activeNow}명
-                    </span>
-                    <span className="text-neutral-500">학습중</span>
-                  </div>
+
                   <div className="ml-auto">
                     <Badge>{activeContent.difficulty}</Badge>
                   </div>
@@ -453,7 +447,7 @@ export function TimedCourseHub() {
                       <Button
                         size="3"
                         className="flex-1"
-                        onClick={() => navigate(`/course/${activeContent.id}`)}
+                        onClick={() => navigate(`/course`)}
                       >
                         <Unlock className="w-4 h-4 mr-2" />
                         지금 시작하기

@@ -1,8 +1,9 @@
 import { Bell } from "lucide-react";
 import { Avatar, IconButton } from "@radix-ui/themes";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export function LearningHeader() {
+  const navigate = useNavigate();
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/80 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -48,9 +49,10 @@ export function LearningHeader() {
             <Avatar
               src="https://api.dicebear.com/7.x/avataaars/svg?seed=user"
               size="3"
-              className="border-1"
+              className="border"
               fallback="ME"
               radius="full"
+              onClick={() => navigate(`/onboarding`)}
             />
           </div>
         </div>

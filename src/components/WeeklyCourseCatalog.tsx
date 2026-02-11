@@ -10,13 +10,14 @@ import {
   MessageSquare,
   ThumbsUp,
   Sparkles,
+  type LucideIcon,
 } from "lucide-react";
-import { Badge, Button } from "@radix-ui/themes";
+import { Badge } from "@radix-ui/themes";
 import { useNavigate } from "react-router-dom";
 
 // 콘텐츠 타입별 학습 자료 - 각각 독립적이고 가벼움
 interface ContentItem {
-  icon: any;
+  icon: LucideIcon;
   title: string;
   description: string;
   type: "영상" | "글" | "오디오" | "퀴즈";
@@ -135,13 +136,12 @@ export function WeeklyCourseCatalog() {
       <div className="grid md:grid-cols-3 gap-4">
         {contentItems.map((item, index) => {
           const Icon = item.icon;
-          const completionRate = Math.round((item.completed / item.views) * 100);
 
           return (
             <div
               key={index}
               className="group relative bg-white border-2 border-neutral-200 hover:border-violet-300 rounded-xl p-4 transition-all hover:shadow-lg cursor-pointer"
-              onClick={() => navigate(`/content/${index}`)}
+              onClick={() => navigate(`/course`)}
             >
               {/* 타입 뱃지 */}
               <div className="flex items-center justify-between mb-3">
@@ -166,11 +166,13 @@ export function WeeklyCourseCatalog() {
                   <Clock className="w-3.5 h-3.5 text-blue-500" />
                   <span className="font-semibold">{item.duration}</span>
                 </div>
-                <Badge size="1" color="gray">{item.difficulty}</Badge>
+                <Badge size="1" color="gray">
+                  {item.difficulty}
+                </Badge>
               </div>
 
               {/* 통계 */}
-              <div className="grid grid-cols-2 gap-2 mb-3 pb-3 border-b text-xs">
+              <div className="grid grid-cols-2 gap-2 mb-3 pb-3 border-b text-xs border-neutral-300">
                 <div className="flex items-center gap-1 text-neutral-600">
                   <Users className="w-3.5 h-3.5" />
                   <span>{item.views}</span>
@@ -190,10 +192,10 @@ export function WeeklyCourseCatalog() {
               </div>
 
               {/* 버튼 */}
-              <Button size="1" variant="soft" className="w-full">
+              <Badge size="1">
                 보기
                 <ArrowRight className="w-3 h-3 ml-1" />
-              </Button>
+              </Badge>
             </div>
           );
         })}
